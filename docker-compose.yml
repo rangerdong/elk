@@ -46,5 +46,5 @@ services:
         networks:
             - elk
         extra_hosts:
-            - "api.ucie.local:172.22.0.1"
+            - "api.ucie.local:172.19.0.1"
             
