@@ -16,6 +16,8 @@ services:
             - ./logs/elasticsearch/:/var/log/elasticsearch
         networks:
             - elk
+        external_links:
+            - nginx:nginx
             
     kibana:
         image: kibana
@@ -30,6 +32,8 @@ services:
             - elasticsearch
         networks:
             - elk
+        external_links:
+            - nginx:nginx
             
     logstash:
         image: logstash
@@ -45,6 +49,5 @@ services:
         command: logstash -f /config-dir
         networks:
             - elk
-        extra_hosts:
-            - "api.ucie.local:172.19.0.1"
-            
+        external_links:
+            - nginx:nginx
