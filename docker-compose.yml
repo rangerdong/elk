@@ -1,7 +1,8 @@
 version: "3"
 
 networks:
-    elk:
+    elk-filebeat:
+        external: true
 
 services:
     elasticsearch:
@@ -15,9 +16,7 @@ services:
             - ./elasticsearch/:/usr/share/elasticsearch/data
             - ./logs/elasticsearch/:/var/log/elasticsearch
         networks:
-            - elk
-        external_links:
-            - nginx:nginx
+            - elk-filebeat
             
     kibana:
         image: kibana
@@ -31,9 +30,7 @@ services:
         depends_on:
             - elasticsearch
         networks:
-            - elk
-        external_links:
-            - nginx:nginx
+            - elk-filebeat
             
     logstash:
         image: logstash
@@ -48,6 +45,6 @@ services:
             - elasticsearch
         command: logstash -f /config-dir
         networks:
-            - elk
+            - elk-filebeat
         external_links:
             - nginx:nginx
